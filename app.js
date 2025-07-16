@@ -100,11 +100,19 @@ app.use("/listings",listingsRouter);
 app.use("/listings/:id/reviews",reviewsRouter);
 app.use("/",userRouter);
 
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
+
 app.use((err,req,res,next)=>{
   let{statusCode=500,message="something went wrong"}=err;
   res.status(statusCode).render("error.ejs",{message});
   // res.status(statusCode).send(message);
 })
-app.listen(8080,(req,res)=>{
-    console.log("server is listening to port 8080")
-})
+// app.listen(8080,(req,res)=>{
+//     console.log("server is listening to port 8080")
+// })
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}`);
+});
